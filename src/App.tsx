@@ -1,21 +1,9 @@
-import { Footer } from './components';
+import { Footer, Header } from './components';
 
 const App = () => {
   return (
     <>
-      <header>
-        <div>
-          <a href="index.html">
-            <img src="/img/logo.svg" alt="Logotipo de GuitarLA" />
-          </a>
-
-          <nav>
-            <button type="button" aria-label="Abrir carrito">
-              <img src="/img/carrito.png" alt="" />
-            </button>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <aside id="carrito">
         <div>
