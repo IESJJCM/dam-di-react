@@ -1,19 +1,29 @@
-import { Cart, Footer, Guitar, Header } from './components';
+import { useEffect, useState } from 'react';
+import { Footer, Guitar, Header } from './components';
+
+import { db } from './data/db';
 
 const App = () => {
+  const [guitars] = useState(db);
+
+  useEffect(() => {
+    document.title = `GuitarLA · ${guitars.length} guitarras`;
+  }, [guitars]);
+
   return (
     <>
       <Header />
-
-      <Cart />
 
       <main className="mx-auto mt-10 max-w-6xl px-4">
         <h2 className="text-center text-4xl font-black">Nuestra Colección</h2>
 
         <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <Guitar />
-          <Guitar />
-          <Guitar />
+          {
+            /** Guitars */
+            guitars.map((guitar) => (
+              <Guitar key={guitar.id} />
+            ))
+          }
         </div>
       </main>
 
