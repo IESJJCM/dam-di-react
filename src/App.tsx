@@ -1,11 +1,9 @@
-import { Cart, Footer, Guitar, Header } from './components';
+import { Footer, Guitar, Header } from './components';
 
 const App = () => {
   return (
     <>
       <Header />
-
-      <Cart />
 
       <main className="mx-auto mt-10 max-w-6xl px-4">
         <h2 className="text-center text-4xl font-black">Nuestra Colección</h2>

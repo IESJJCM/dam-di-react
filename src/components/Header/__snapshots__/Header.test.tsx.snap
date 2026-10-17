@@ -25,8 +25,10 @@ exports[`Header > should match the snapshot 1`] = `
         class="flex justify-end md:mt-10 md:w-1/2"
       >
         <button
+          aria-controls="cart"
+          aria-expanded="false"
           aria-label="Abrir carrito"
-          class="w-8 cursor-pointer transition hover:scale-110"
+          class="w-8 cursor-pointer transition hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           type="button"
         >
           <img

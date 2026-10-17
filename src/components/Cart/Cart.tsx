@@ -1,8 +1,14 @@
 export const Cart = () => {
   return (
-    <aside className="fixed inset-y-0 right-0 z-30 flex w-full max-w-md flex-col bg-white shadow-2xl">
+    <aside
+      id="cart"
+      aria-labelledby="cart-title"
+      className="fixed inset-y-0 right-0 z-30 flex w-full max-w-md flex-col bg-white shadow-2xl"
+    >
       <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
-        <h2 className="text-2xl font-black">Tu carrito</h2>
+        <h2 id="cart-title" className="text-2xl font-black">
+          Tu carrito
+        </h2>
         <button
           type="button"
           className="size-8 rounded-full text-xl font-bold text-gray-500 transition hover:bg-gray-100"

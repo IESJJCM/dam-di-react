@@ -22,6 +22,9 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true }],
+    },
   },
   ...storybook.configs['flat/recommended'],
 ]);
