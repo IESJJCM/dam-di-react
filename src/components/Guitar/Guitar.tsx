@@ -1,23 +1,28 @@
-export const Guitar = () => {
+import type { Guitar as GuitarType } from '../../types';
+
+type GuitarProps = {
+  guitar: GuitarType;
+};
+
+export const Guitar = ({ guitar }: GuitarProps) => {
+  const { name, image, description, price } = guitar;
+
   return (
     <article className="flex items-center gap-4">
       <img
         className="w-1/3 object-contain"
-        src="/img/guitarra_01.jpg"
-        alt="Guitarra Lukather"
+        src={`/img/${image}.jpg`}
+        alt={`Guitarra ${name}`}
       />
       <div className="w-2/3">
-        <h3 className="text-2xl font-bold text-black uppercase">Lukather</h3>
-        <p className="mt-2 text-gray-600">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae
-          labore odit magnam in autem nesciunt, amet deserunt.
-        </p>
-        <p className="mt-2 text-3xl font-black text-blue-600">$299</p>
+        <h3 className="text-2xl font-bold text-black uppercase">{name}</h3>
+        <p className="mt-2 text-gray-600">{description}</p>
+        <p className="mt-2 text-3xl font-black text-blue-600">${price}</p>
         <button
           type="button"
           className="mt-3 w-full rounded bg-gray-900 px-4 py-2 font-bold text-white uppercase transition hover:bg-gray-700"
         >
-          Agregar al carrito
+          Agregar al carrito<span className="sr-only">: {name}</span>
         </button>
       </div>
     </article>

@@ -21,7 +21,7 @@ const App = () => {
           {
             /** Guitars */
             guitars.map((guitar) => (
-              <Guitar key={guitar.id} />
+              <Guitar key={guitar.id} guitar={guitar} />
             ))
           }
         </div>
