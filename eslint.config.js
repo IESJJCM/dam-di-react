@@ -23,7 +23,10 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
-      '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true }],
+      '@typescript-eslint/no-unused-expressions': [
+        'error',
+        { allowShortCircuit: true },
+      ],
     },
   },
   ...storybook.configs['flat/recommended'],
