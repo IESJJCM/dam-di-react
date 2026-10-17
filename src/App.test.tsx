@@ -9,4 +9,14 @@ describe('App', () => {
       screen.getByRole('heading', { name: 'Nuestra Colección' })
     ).toBeInTheDocument();
   });
+
+  it('shows one card per guitar in the catalogue', () => {
+    render(<App />);
+    expect(screen.getAllByRole('article')).toHaveLength(12);
+  });
+
+  it('updates the document title with the number of guitars', () => {
+    render(<App />);
+    expect(document.title).toBe('GuitarLA · 12 guitarras');
+  });
 });
