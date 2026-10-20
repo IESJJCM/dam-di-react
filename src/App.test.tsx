@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+
 import App from './App';
 
 describe('App', () => {
@@ -18,5 +20,26 @@ describe('App', () => {
   it('updates the document title with the number of guitars', () => {
     render(<App />);
     expect(document.title).toBe('GuitarLA · 12 guitarras');
+  });
+
+  it('adds guitars to the cart and shows them in the panel', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(
+      screen.getByRole('button', { name: 'Agregar al carrito: Lukather' })
+    );
+    await user.click(
+      screen.getByRole('button', { name: 'Agregar al carrito: Lukather' })
+    );
+    await user.click(
+      screen.getByRole('button', { name: 'Agregar al carrito: SRV' })
+    );
+    await user.click(screen.getByRole('button', { name: 'Abrir carrito' }));
+
+    const cart = screen.getByRole('complementary', { name: 'Tu carrito' });
+    expect(within(cart).getAllByRole('row')).toHaveLength(3);
+    expect(within(cart).getByText('$947')).toBeInTheDocument();
+    expect(screen.getByText('3 artículos en el carrito')).toBeInTheDocument();
   });
 });
