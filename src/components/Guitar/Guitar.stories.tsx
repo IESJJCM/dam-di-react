@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 
 import { db } from '../../data/db';
 import { Guitar } from './Guitar';
@@ -7,6 +8,7 @@ const meta = {
   component: Guitar,
   args: {
     guitar: db[0],
+    onAddToCart: fn(),
   },
   decorators: [
     (Story) => (
