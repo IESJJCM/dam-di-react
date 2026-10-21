@@ -1,28 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Footer, Guitar, Header } from './components';
-import type { CartItem, Guitar as GuitarType } from './types';
 
 import { db } from './data/db';
+import { useCart } from './hooks';
 
 const App = () => {
   const [guitars] = useState(db);
-  const [cart, setCart] = useState<CartItem[]>([]);
-
-  const addToCart = (guitar: GuitarType) => {
-    const exists = cart.find((item) => item.id === guitar.id);
-
-    if (exists) {
-      setCart(
-        cart.map((item) =>
-          item.id === guitar.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...guitar, quantity: 1 }]);
-    }
-  };
+  const { cart, addToCart } = useCart();
 
   useEffect(() => {
     document.title = `GuitarLA · ${guitars.length} guitarras`;
