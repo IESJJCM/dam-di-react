@@ -8,6 +8,10 @@ const meta = {
   args: {
     cart: [],
     onClose: fn(),
+    onIncrease: fn(),
+    onDecrease: fn(),
+    onRemove: fn(),
+    onClear: fn(),
   },
   parameters: {
     layout: 'fullscreen',
