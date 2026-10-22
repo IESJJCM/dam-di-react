@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "test": "vitest",
     "storybook": "storybook dev -p 6006 --host 0.0.0.0",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "docs:api": "typedoc"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -20,6 +21,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@storybook/addon-a11y": "^10.6.2",
+    "@storybook/addon-docs": "^10.6.2",
+    "@storybook/react-vite": "^10.6.2",
     "@tailwindcss/vite": "^4.3.3",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
@@ -33,19 +37,17 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
+    "eslint-plugin-storybook": "^10.6.2",
     "globals": "^17.13.0",
     "jsdom": "^29.1.1",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "storybook": "^10.6.2",
     "tailwindcss": "^4.3.3",
+    "typedoc": "^0.28.20",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.71.2",
     "vite": "^8.3.0",
-    "vitest": "^5.0.4",
-    "storybook": "^10.6.2",
-    "@storybook/react-vite": "^10.6.2",
-    "@storybook/addon-a11y": "^10.6.2",
-    "@storybook/addon-docs": "^10.6.2",
-    "eslint-plugin-storybook": "^10.6.2"
+    "vitest": "^5.0.4"
   }
 }

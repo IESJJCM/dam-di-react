@@ -11,6 +11,9 @@ node_modules
 dist
 coverage
 storybook-static
+# TypeDoc output
+docs/api
+
 dist-ssr
 *.local
 

@@ -1,0 +1,6 @@
+{
+  "entryPoints": ["src/hooks/index.ts", "src/types/index.ts"],
+  "tsconfig": "tsconfig.app.json",
+  "out": "docs/api",
+  "readme": "none"
+}
