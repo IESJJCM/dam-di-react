@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { CartItem } from '../../types';
 import { Header } from './Header';
 
@@ -23,16 +24,27 @@ const items: CartItem[] = [
   },
 ];
 
+const renderHeader = (cart: CartItem[] = []) =>
+  render(
+    <Header
+      cart={cart}
+      onIncrease={vi.fn()}
+      onDecrease={vi.fn()}
+      onRemove={vi.fn()}
+      onClear={vi.fn()}
+    />
+  );
+
 describe('Header', () => {
   it('shows the logo linking to the home page', () => {
-    render(<Header cart={[]} />);
+    renderHeader();
     const logo = screen.getByRole('img', { name: 'Logotipo de GuitarLA' });
     expect(logo).toBeInTheDocument();
     expect(logo.closest('a')).toHaveAttribute('href', '/');
   });
 
   it('starts with the cart closed', () => {
-    render(<Header cart={[]} />);
+    renderHeader();
     expect(
       screen.getByRole('button', { name: 'Abrir carrito' })
     ).toHaveAttribute('aria-expanded', 'false');
@@ -43,7 +55,7 @@ describe('Header', () => {
 
   it('opens the cart when the button is clicked', async () => {
     const user = userEvent.setup();
-    render(<Header cart={[]} />);
+    renderHeader();
 
     await user.click(screen.getByRole('button', { name: 'Abrir carrito' }));
 
@@ -57,7 +69,7 @@ describe('Header', () => {
 
   it('closes the cart with the Escape key', async () => {
     const user = userEvent.setup();
-    render(<Header cart={[]} />);
+    renderHeader();
 
     await user.click(screen.getByRole('button', { name: 'Abrir carrito' }));
     await user.keyboard('{Escape}');
@@ -68,7 +80,7 @@ describe('Header', () => {
   });
 
   it('shows the number of items in the cart', () => {
-    render(<Header cart={items} />);
+    renderHeader(items);
     expect(screen.getByText('3')).toBeInTheDocument();
     expect(screen.getByText('3 artículos en el carrito')).toBeInTheDocument();
   });

@@ -6,7 +6,14 @@ import { useCart } from './hooks';
 
 const App = () => {
   const [guitars] = useState(db);
-  const { cart, addToCart } = useCart();
+  const {
+    cart,
+    addToCart,
+    increaseQuantity,
+    decreaseQuantity,
+    removeFromCart,
+    clearCart,
+  } = useCart();
 
   useEffect(() => {
     document.title = `GuitarLA · ${guitars.length} guitarras`;
@@ -14,7 +21,13 @@ const App = () => {
 
   return (
     <>
-      <Header cart={cart} />
+      <Header
+        cart={cart}
+        onIncrease={increaseQuantity}
+        onDecrease={decreaseQuantity}
+        onRemove={removeFromCart}
+        onClear={clearCart}
+      />
 
       <main className="mx-auto mt-10 max-w-6xl px-4">
         <h2 className="text-center text-4xl font-black">Nuestra Colección</h2>

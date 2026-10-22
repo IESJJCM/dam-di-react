@@ -4,9 +4,19 @@ import { Cart } from '../Cart';
 
 type HeaderProps = {
   cart: CartItem[];
+  onIncrease: (id: CartItem['id']) => void;
+  onDecrease: (id: CartItem['id']) => void;
+  onRemove: (id: CartItem['id']) => void;
+  onClear: () => void;
 };
 
-export const Header = ({ cart }: HeaderProps) => {
+export const Header = ({
+  cart,
+  onIncrease,
+  onDecrease,
+  onRemove,
+  onClear,
+}: HeaderProps) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -72,7 +82,14 @@ export const Header = ({ cart }: HeaderProps) => {
             className="fixed inset-0 z-20 bg-black/70"
             onClick={() => setIsCartOpen(false)}
           ></div>
-          <Cart cart={cart} onClose={() => setIsCartOpen(false)} />
+          <Cart
+            cart={cart}
+            onClose={() => setIsCartOpen(false)}
+            onIncrease={onIncrease}
+            onDecrease={onDecrease}
+            onRemove={onRemove}
+            onClear={onClear}
+          />
         </>
       )}
     </header>

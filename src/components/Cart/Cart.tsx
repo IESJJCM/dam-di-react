@@ -1,11 +1,23 @@
 import type { CartItem } from '../../types';
+import { MAX_ITEMS, MIN_ITEMS } from '../../hooks';
 
 type CartProps = {
   cart: CartItem[];
   onClose: () => void;
+  onIncrease: (id: CartItem['id']) => void;
+  onDecrease: (id: CartItem['id']) => void;
+  onRemove: (id: CartItem['id']) => void;
+  onClear: () => void;
 };
 
-export const Cart = ({ cart, onClose }: CartProps) => {
+export const Cart = ({
+  cart,
+  onClose,
+  onIncrease,
+  onDecrease,
+  onRemove,
+  onClear,
+}: CartProps) => {
   const isEmpty = cart.length === 0;
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -60,16 +72,20 @@ export const Cart = ({ cart, onClose }: CartProps) => {
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
-                        className="size-6 rounded bg-gray-900 text-white"
+                        className="size-6 rounded bg-gray-900 text-white transition hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-400"
                         aria-label={`Quitar una unidad de ${item.name}`}
+                        disabled={item.quantity <= MIN_ITEMS}
+                        onClick={() => onDecrease(item.id)}
                       >
                         -
                       </button>
                       {item.quantity}
                       <button
                         type="button"
-                        className="size-6 rounded bg-gray-900 text-white"
+                        className="size-6 rounded bg-gray-900 text-white transition hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-400"
                         aria-label={`Añadir una unidad de ${item.name}`}
+                        disabled={item.quantity >= MAX_ITEMS}
+                        onClick={() => onIncrease(item.id)}
                       >
                         +
                       </button>
@@ -78,8 +94,9 @@ export const Cart = ({ cart, onClose }: CartProps) => {
                   <td>
                     <button
                       type="button"
-                      className="size-6 rounded-full bg-red-600 text-xs font-bold text-white"
+                      className="size-6 rounded-full bg-red-600 text-xs font-bold text-white transition hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                       aria-label={`Eliminar ${item.name} del carrito`}
+                      onClick={() => onRemove(item.id)}
                     >
                       X
                     </button>
@@ -97,8 +114,9 @@ export const Cart = ({ cart, onClose }: CartProps) => {
         </p>
         <button
           type="button"
-          className="mt-3 w-full rounded bg-gray-900 p-3 font-bold text-white uppercase transition hover:bg-gray-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+          className="mt-3 w-full rounded bg-gray-900 p-3 font-bold text-white uppercase transition hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-400"
           disabled={isEmpty}
+          onClick={onClear}
         >
           Vaciar carrito
         </button>
