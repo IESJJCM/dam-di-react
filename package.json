@@ -13,14 +13,18 @@
     "test": "vitest",
     "storybook": "storybook dev -p 6006 --host 0.0.0.0",
     "build-storybook": "storybook build",
-    "docs:api": "typedoc"
+    "docs:api": "typedoc",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
     "@storybook/addon-a11y": "^10.6.2",
     "@storybook/addon-docs": "^10.6.2",
     "@storybook/react-vite": "^10.6.2",

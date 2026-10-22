@@ -1,2 +1,4 @@
 storybook-static
 docs/api
+playwright-report
+test-results

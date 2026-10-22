@@ -24,7 +24,7 @@ export const Guitar = ({ guitar, onAddToCart }: GuitarProps) => {
           className="mt-3 w-full rounded bg-gray-900 px-4 py-2 font-bold text-white uppercase transition hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           onClick={() => onAddToCart(guitar)}
         >
-          Agregar al carrito<span className="sr-only">: {name}</span>
+          Agregar al carrito <span className="sr-only">{name}</span>
         </button>
       </div>
     </article>

@@ -11,8 +11,14 @@ node_modules
 dist
 coverage
 storybook-static
+
 # TypeDoc output
 docs/api
+
+
+# Playwright
+playwright-report
+test-results
 
 dist-ssr
 *.local

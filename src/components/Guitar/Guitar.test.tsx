@@ -36,7 +36,7 @@ describe('Guitar', () => {
     render(<Guitar guitar={guitar} onAddToCart={onAddToCart} />);
 
     await user.click(
-      screen.getByRole('button', { name: 'Agregar al carrito: Lukather' })
+      screen.getByRole('button', { name: 'Agregar al carrito Lukather' })
     );
 
     expect(onAddToCart).toHaveBeenCalledTimes(1);
