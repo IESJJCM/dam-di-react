@@ -1,8 +1,8 @@
-import { describe, expect, it } from "vitest";
-import { act, renderHook } from "@testing-library/react";
+import { describe, expect, it } from 'vitest';
+import { act, renderHook } from '@testing-library/react';
 
-import type { Guitar } from "../types";
-import { MAX_ITEMS, useCart } from "./useCart";
+import type { Guitar } from '../types';
+import { MAX_ITEMS, useCart, CART_STORAGE_KEY } from './useCart';
 
 const lukather: Guitar = {
   id: 1,
@@ -21,7 +21,6 @@ const srv: Guitar = {
 };
 
 describe('useCart', () => {
-
   it('starts with an empty cart', () => {
     const { result } = renderHook(() => useCart());
 
@@ -65,7 +64,6 @@ describe('useCart', () => {
     act(() => result.current.decreaseQuantity(lukather.id));
 
     expect(result.current.cart[0].quantity).toBe(1);
-
   });
 
   it('removes a guitar from the cart', () => {
@@ -76,9 +74,8 @@ describe('useCart', () => {
 
     act(() => result.current.removeFromCart(lukather.id));
 
-
     expect(result.current.cart).toEqual([{ ...srv, quantity: 1 }]);
-  })
+  });
 
   it('clears the cart', () => {
     const { result } = renderHook(() => useCart());
@@ -88,7 +85,26 @@ describe('useCart', () => {
     act(() => result.current.clearCart());
 
     expect(result.current.cart).toEqual([]);
-  })
+  });
+
+  it('restores the cart from localStorage', () => {
+    localStorage.setItem(
+      CART_STORAGE_KEY,
+      JSON.stringify([{ ...srv, quantity: 3 }])
+    );
+
+    const { result } = renderHook(() => useCart());
+
+    expect(result.current.cart).toEqual([{ ...srv, quantity: 3 }]);
+  });
+
+  it('saves the cart in localStorage when it changes', () => {
+    const { result } = renderHook(() => useCart());
+
+    act(() => result.current.addToCart(lukather));
+
+    expect(JSON.parse(localStorage.getItem(CART_STORAGE_KEY)!)).toEqual([
+      { ...lukather, quantity: 1 },
+    ]);
+  });
 });
-
-
