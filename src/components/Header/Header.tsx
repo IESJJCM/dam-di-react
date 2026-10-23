@@ -1,22 +1,9 @@
 import { useState, useEffect } from 'react';
-import type { CartItem } from '../../types';
 import { Cart } from '../Cart';
+import { useCartContext } from '../../context';
 
-type HeaderProps = {
-  cart: CartItem[];
-  onIncrease: (id: CartItem['id']) => void;
-  onDecrease: (id: CartItem['id']) => void;
-  onRemove: (id: CartItem['id']) => void;
-  onClear: () => void;
-};
-
-export const Header = ({
-  cart,
-  onIncrease,
-  onDecrease,
-  onRemove,
-  onClear,
-}: HeaderProps) => {
+export const Header = () => {
+  const { cart } = useCartContext();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -81,14 +68,7 @@ export const Header = ({
             className="fixed inset-0 z-20 bg-black/70"
             onClick={() => setIsCartOpen(false)}
           ></div>
-          <Cart
-            cart={cart}
-            onClose={() => setIsCartOpen(false)}
-            onIncrease={onIncrease}
-            onDecrease={onDecrease}
-            onRemove={onRemove}
-            onClear={onClear}
-          />
+          <Cart onClose={() => setIsCartOpen(false)} />
         </>
       )}
     </header>
