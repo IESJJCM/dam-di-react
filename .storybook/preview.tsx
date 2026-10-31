@@ -14,7 +14,7 @@ const preview: Preview = {
       );
 
       if (parameters.router === false) return <Story />;
-      
+
       const router = createMemoryRouter([
         {
           path: '*',
