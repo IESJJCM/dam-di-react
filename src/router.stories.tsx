@@ -25,6 +25,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Catalogue: Story = {};
 
+export const GuitarDetail: Story = {
+  args: { route: '/guitars/3' },
+};
+
 export const NewGuitar: Story = {
   args: { route: '/guitars/new' },
 };

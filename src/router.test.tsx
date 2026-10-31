@@ -100,4 +100,34 @@ describe('App', () => {
       screen.getByRole('link', { name: 'Volver al catálogo' })
     ).toHaveAttribute('href', '/');
   });
+
+  it('shows the detail of a guitar and adds it to the cart from there', async () => {
+    const user = userEvent.setup();
+    renderApp();
+
+    await user.click(screen.getByRole('link', { name: 'SRV' }));
+
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'SRV' })
+    ).toBeInTheDocument();
+    expect(document.title).toBe('SRV · GuitarLA');
+    expect(screen.getByText('$349')).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', { name: 'Agregar al carrito' })
+    );
+
+    expect(screen.getByText('1 artículos en el carrito')).toBeInTheDocument();
+  });
+
+  it('shows the not found page for a guitar that does not exist', async () => {
+    renderApp('/guitars/999');
+
+    expect(
+      await screen.findByRole('heading', { name: 'Página no encontrada' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('No existe ninguna guitarra con el id 999.')
+    ).toBeInTheDocument();
+  });
 });

@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import type { Guitar as GuitarType } from '../../types';
 
 type GuitarProps = {
@@ -6,7 +7,7 @@ type GuitarProps = {
 };
 
 export const Guitar = ({ guitar, onAddToCart }: GuitarProps) => {
-  const { name, image, description, price } = guitar;
+  const { id, name, image, description, price } = guitar;
 
   return (
     <article className="flex items-center gap-4">
@@ -16,7 +17,14 @@ export const Guitar = ({ guitar, onAddToCart }: GuitarProps) => {
         alt={`Guitarra ${name}`}
       />
       <div className="w-2/3">
-        <h2 className="text-2xl font-bold text-black uppercase">{name}</h2>
+        <h2 className="text-2xl font-bold text-black uppercase">
+          <Link
+            to={`/guitars/${id}`}
+            className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          >
+            {name}
+          </Link>
+        </h2>
         <p className="mt-2 text-gray-600">{description}</p>
         <p className="mt-2 text-3xl font-black text-blue-600">${price}</p>
         <button
