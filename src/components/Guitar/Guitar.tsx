@@ -16,7 +16,7 @@ export const Guitar = ({ guitar, onAddToCart }: GuitarProps) => {
         alt={`Guitarra ${name}`}
       />
       <div className="w-2/3">
-        <h3 className="text-2xl font-bold text-black uppercase">{name}</h3>
+        <h2 className="text-2xl font-bold text-black uppercase">{name}</h2>
         <p className="mt-2 text-gray-600">{description}</p>
         <p className="mt-2 text-3xl font-black text-blue-600">${price}</p>
         <button
