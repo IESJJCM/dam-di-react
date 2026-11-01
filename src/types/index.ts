@@ -4,7 +4,7 @@ export type Guitar = {
   id: number;
   /** Name shown on the card. */
   name: string;
-  /** File name of the image in `public/img/`, without extension. */
+  /** Public URL of the image. */
   image: string;
   /** Short description shown on the card. */
   description: string;

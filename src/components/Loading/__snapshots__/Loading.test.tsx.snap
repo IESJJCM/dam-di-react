@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Loading > should match the snapshot 1`] = `
+<div>
+  <p
+    class="py-10 text-center text-xl text-gray-600"
+    role="status"
+  >
+    Cargando…
+  </p>
+</div>
+`;

@@ -1,7 +1,8 @@
 import { createBrowserRouter, type RouteObject } from 'react-router';
 import { Layout } from './layouts';
+import { Loading } from './components';
 import { GuitarDetail, Home, NewGuitar, NotFound, RouteError } from './pages';
-import { guitarLoader } from './loaders/guitarLoader';
+import { guitarLoader, guitarsLoader } from './loaders';
 
 /** The routes of GuitarLA: a layout with the header and footer, and its pages. */
 export const routes: RouteObject[] = [
@@ -9,9 +10,19 @@ export const routes: RouteObject[] = [
     Component: Layout,
     ErrorBoundary: RouteError,
     children: [
-      { index: true, Component: Home },
+      {
+        index: true,
+        Component: Home,
+        loader: guitarsLoader,
+        HydrateFallback: Loading,
+      },
       { path: 'guitars/new', Component: NewGuitar },
-      { path: 'guitars/:id', Component: GuitarDetail, loader: guitarLoader },
+      {
+        path: 'guitars/:id',
+        Component: GuitarDetail,
+        loader: guitarLoader,
+        HydrateFallback: Loading,
+      },
       { path: '*', Component: NotFound },
     ],
   },

@@ -13,7 +13,7 @@ export const GuitarDetail = () => {
     <article className="flex flex-col items-center gap-8 md:flex-row md:items-start">
       <img
         className="w-2/3 object-contain md:w-1/3"
-        src={`/img/${guitar.image}.jpg`}
+        src={guitar.image}
         alt={`Guitarra ${guitar.name}`}
       />
       <div className="md:w-2/3">

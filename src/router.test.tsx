@@ -3,23 +3,28 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
 import { renderApp } from './test';
+import { guitars } from './test/fixtures';
+import { CART_STORAGE_KEY } from './hooks';
 
-describe('App', () => {
-  it('shows the collection title', () => {
+describe('Routes', () => {
+  it('shows a loading message and then the collection title', async () => {
     renderApp();
+    expect(screen.getByRole('status')).toHaveTextContent('Cargando…');
     expect(
-      screen.getByRole('heading', { name: 'Nuestra Colección' })
+      await screen.findByRole('heading', { name: 'Nuestra Colección' })
     ).toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
-  it('shows one card per guitar in the catalogue', () => {
+  it('shows one card per guitar in the catalogue', async () => {
     renderApp();
-    expect(screen.getAllByRole('article')).toHaveLength(12);
+    expect(await screen.findAllByRole('article')).toHaveLength(3);
   });
 
-  it('updates the document title with the number of guitars', () => {
+  it('updates the document title with the number of guitars', async () => {
     renderApp();
-    expect(document.title).toBe('GuitarLA · 12 guitarras');
+    await screen.findByRole('heading', { name: 'Nuestra Colección' });
+    expect(document.title).toBe('GuitarLA · 3 guitarras');
   });
 
   it('adds guitars to the cart and shows them in the panel', async () => {
@@ -27,13 +32,13 @@ describe('App', () => {
     renderApp();
 
     await user.click(
-      screen.getByRole('button', { name: 'Agregar al carrito Lukather' })
+      await screen.findByRole('button', { name: 'Agregar al carrito Lukather' })
     );
     await user.click(
-      screen.getByRole('button', { name: 'Agregar al carrito Lukather' })
+      await screen.findByRole('button', { name: 'Agregar al carrito Lukather' })
     );
     await user.click(
-      screen.getByRole('button', { name: 'Agregar al carrito SRV' })
+      await screen.findByRole('button', { name: 'Agregar al carrito SRV' })
     );
     await user.click(screen.getByRole('button', { name: 'Abrir carrito' }));
 
@@ -48,7 +53,7 @@ describe('App', () => {
     renderApp();
 
     await user.click(
-      screen.getByRole('button', { name: 'Agregar al carrito Lukather' })
+      await screen.findByRole('button', { name: 'Agregar al carrito Lukather' })
     );
     await user.click(
       screen.getByRole('button', { name: 'Agregar al carrito SRV' })
@@ -82,22 +87,22 @@ describe('App', () => {
     await user.click(screen.getByRole('link', { name: 'Añadir guitarra' }));
 
     expect(
-      screen.getByRole('heading', { name: 'Nueva guitarra' })
+      await screen.findByRole('link', { name: 'Añadir guitarra' })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: 'Añadir guitarra' })
+      await screen.findByRole('link', { name: 'Añadir guitarra' })
     ).toHaveAttribute('aria-current', 'page');
     expect(document.title).toBe('Nueva guitarra · GuitarLA');
   });
 
-  it('shows the not found page for an unknown route', () => {
+  it('shows the not found page for an unknown route', async () => {
     renderApp('/no-existe');
 
     expect(
-      screen.getByRole('heading', { name: 'Página no encontrada' })
+      await screen.findByRole('heading', { name: 'Página no encontrada' })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: 'Volver al catálogo' })
+      await screen.findByRole('link', { name: 'Volver al catálogo' })
     ).toHaveAttribute('href', '/');
   });
 
@@ -105,7 +110,7 @@ describe('App', () => {
     const user = userEvent.setup();
     renderApp();
 
-    await user.click(screen.getByRole('link', { name: 'SRV' }));
+    await user.click(await screen.findByRole('link', { name: 'SRV' }));
 
     expect(
       await screen.findByRole('heading', { level: 1, name: 'SRV' })
@@ -129,5 +134,19 @@ describe('App', () => {
     expect(
       screen.getByText('No existe ninguna guitarra con el id 999.')
     ).toBeInTheDocument();
+  });
+
+  it('restores the cart from localStorage on load', async () => {
+    const user = userEvent.setup();
+    localStorage.setItem(
+      CART_STORAGE_KEY,
+      JSON.stringify([{ ...guitars[0], quantity: 2 }])
+    );
+
+    renderApp();
+    await user.click(screen.getByRole('button', { name: 'Abrir carrito' }));
+    await user.click(
+      await screen.findByRole('button', { name: 'Abrir carrito' })
+    );
   });
 });

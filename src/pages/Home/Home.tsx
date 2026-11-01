@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useLoaderData } from 'react-router';
 import { Guitar } from '../../components';
 import { useCartContext } from '../../context';
-import { db } from '../../data/db';
 import { useDocumentTitle } from '../../hooks';
+import type { guitarsLoader } from '../../loaders';
 
 export const Home = () => {
-  const [guitars] = useState(db);
+  const guitars = useLoaderData<typeof guitarsLoader>();
   const { addToCart } = useCartContext();
 
   useDocumentTitle(`GuitarLA · ${guitars.length} guitarras`);
