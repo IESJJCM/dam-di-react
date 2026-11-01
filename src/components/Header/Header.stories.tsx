@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { db } from '../../data/db';
+import { guitars } from '../../test/fixtures';
 import { Header } from './Header';
 
 const meta = {
@@ -18,8 +18,8 @@ export const Default: Story = {};
 export const WithItems: Story = {
   parameters: {
     cart: [
-      { ...db[0], quantity: 2 },
-      { ...db[1], quantity: 1 },
+      { ...guitars[0], quantity: 2 },
+      { ...guitars[1], quantity: 1 },
     ],
   },
 };

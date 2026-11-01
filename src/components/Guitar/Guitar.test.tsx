@@ -4,16 +4,10 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { renderWithProviders } from '../../test';
 
-import type { Guitar as GuitarType } from '../../types';
+import { guitars } from '../../test/fixtures';
 import { Guitar } from './Guitar';
 
-const guitar: GuitarType = {
-  id: 1,
-  name: 'Lukather',
-  image: 'guitarra_01',
-  description: 'Una guitarra de prueba',
-  price: 299,
-};
+const guitar = guitars[0];
 
 describe('Guitar', () => {
   it('shows the name, image, description and price of the guitar', () => {

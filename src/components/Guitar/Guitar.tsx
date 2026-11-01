@@ -13,7 +13,7 @@ export const Guitar = ({ guitar, onAddToCart }: GuitarProps) => {
     <article className="flex items-center gap-4">
       <img
         className="w-1/3 object-contain"
-        src={`/img/${image}.jpg`}
+        src={image}
         alt={`Guitarra ${name}`}
       />
       <div className="w-2/3">

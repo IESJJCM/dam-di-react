@@ -19,6 +19,10 @@ docs/api
 playwright-report
 test-results
 
+
+# Environment variables with the Supabase keys
+.env
+
 dist-ssr
 *.local
 
