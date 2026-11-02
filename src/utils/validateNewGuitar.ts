@@ -3,7 +3,9 @@ import type { NewGuitar, NewGuitarErrors } from '../types';
 /** Largest image accepted, in bytes (2 MB). */
 export const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
 
-type Result = { data: NewGuitar; errors?: never } | { errors: NewGuitarErrors };
+/** Either the typed data of a valid form, or the errors of an invalid one. */
+export type NewGuitarValidation =
+  { data: NewGuitar; errors?: never } | { errors: NewGuitarErrors };
 
 /**
  * Validates the fields of the new guitar form.
@@ -12,7 +14,7 @@ type Result = { data: NewGuitar; errors?: never } | { errors: NewGuitarErrors };
  * @returns The typed data when everything is valid, or one message per
  * field that fails, written as what the user has to do.
  */
-export const validateNewGuitar = (formData: FormData): Result => {
+export const validateNewGuitar = (formData: FormData): NewGuitarValidation => {
   const name = String(formData.get('name') ?? '').trim();
   const description = String(formData.get('description') ?? '').trim();
   const price = Number(formData.get('price'));
