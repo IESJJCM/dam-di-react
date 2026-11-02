@@ -1,4 +1,4 @@
-import type { Guitar } from '../../../types';
+import type { Guitar, NewGuitar } from '../../../types';
 
 /**
  * Fake catalogue for the tests and Storybook: three guitars, no network.
@@ -30,7 +30,24 @@ export const guitars: Guitar[] = [
   },
 ];
 
-export const getGuitars = async (): Promise<Guitar[]> => guitars;
+const created: Guitar[] = [];
+
+export const getGuitars = async (): Promise<Guitar[]> => [
+  ...guitars,
+  ...created,
+];
 
 export const getGuitar = async (id: number): Promise<Guitar | null> =>
-  guitars.find((guitar) => guitar.id === id) ?? null;
+  [...guitars, ...created].find((guitar) => guitar.id === id) ?? null;
+
+export const createGuitar = async (input: NewGuitar): Promise<Guitar> => {
+  const guitar: Guitar = {
+    id: guitars.length + created.length + 1,
+    name: input.name,
+    description: input.description,
+    price: input.price,
+    image: '/img/guitarra_04.jpg',
+  };
+  created.push(guitar);
+  return guitar;
+};

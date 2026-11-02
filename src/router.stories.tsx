@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createMemoryRouter, RouterProvider } from 'react-router';
+import { userEvent } from 'storybook/test';
 import { routes } from './router';
 
 const App = ({ route }: { route: string }) => (
@@ -31,6 +32,15 @@ export const GuitarDetail: Story = {
 
 export const NewGuitar: Story = {
   args: { route: '/guitars/new' },
+};
+
+export const NewGuitarWithErrors: Story = {
+  args: { route: '/guitars/new' },
+  play: async ({ canvas }) => {
+    await userEvent.click(
+      await canvas.findByRole('button', { name: 'Guardar guitarra' })
+    );
+  },
 };
 
 export const NotFound: Story = {
