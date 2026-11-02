@@ -92,3 +92,11 @@ host can serve. Two things to configure in the host:
   `VITE_SUPABASE_PUBLISHABLE_KEY`, read at build time;
 - a fallback from every path to `index.html`, so that `/guitars/3` opened
   directly reaches the React Router (`public/_redirects` does it on Netlify).
+
+This branch, `github-pages`, publishes the app, Storybook and the API docs on
+GitHub Pages at `https://<your-user>.github.io/di-react/`, `/storybook/` and
+`/docs/`, through `.github/workflows/deploy.yml` on every push to it. It is
+never merged into `main`: it carries the changes Pages needs (the site hangs
+from a subfolder, so the build receives `BASE_PATH` for Vite's `base` and the
+router's `basename`, and `404.html` is a copy of `index.html`). To publish a
+new version: `git switch github-pages`, `git merge main`, `git push`.

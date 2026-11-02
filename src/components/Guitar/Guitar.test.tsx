@@ -22,7 +22,7 @@ describe('Guitar', () => {
     );
     expect(
       screen.getByRole('img', { name: 'Guitarra Lukather' })
-    ).toHaveAttribute('src', '/img/guitarra_01.jpg');
+    ).toHaveAttribute('src', 'img/guitarra_01.jpg');
 
     expect(screen.getByText('Una guitarra de prueba')).toBeInTheDocument();
 

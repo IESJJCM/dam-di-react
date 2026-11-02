@@ -1,0 +1,57 @@
+name: Deploy to GitHub Pages
+
+# This workflow lives in the github-pages branch, which is never merged into
+# main: it carries the base path changes and is updated with `git merge main`.
+on:
+  push:
+    branches: [github-pages]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          # The site hangs from https://<user>.github.io/<repo>/
+          BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+      - run: npm run build-storybook
+      - run: npm run docs:api
+      - name: Assemble the site
+        run: |
+          mkdir site
+          cp -r dist/. site/
+          cp -r storybook-static site/storybook
+          cp -r docs/api site/docs
+          # GitHub Pages serves 404.html for unknown paths: the SPA fallback.
+          cp dist/index.html site/404.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

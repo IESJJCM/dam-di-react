@@ -3,6 +3,10 @@ import { Cart } from '../Cart';
 import { useCartContext } from '../../context';
 import { Link, NavLink } from 'react-router';
 
+import cartIcon from '../../assets/carrito.png';
+import headerImage from '../../assets/header.jpg';
+import logo from '../../assets/logo.svg';
+
 export const Header = () => {
   const { cart } = useCartContext();
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -24,16 +28,15 @@ export const Header = () => {
   }, [isCartOpen]);
 
   return (
-    <header className="relative bg-[url(/img/header.jpg)] bg-cover bg-center py-10">
+    <header
+      className="relative bg-cover bg-center py-10"
+      style={{ backgroundImage: `url(${headerImage})` }}
+    >
       <div className="absolute inset-0 bg-black/70"></div>
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 md:flex-row md:items-start md:justify-between">
         <Link to="/" className="w-2/3 md:w-1/4">
-          <img
-            className="w-full"
-            src="/img/logo.svg"
-            alt="Logotipo de GuitarLA"
-          />
+          <img className="w-full" src={logo} alt="Logotipo de GuitarLA" />
         </Link>
 
         <nav className="flex items-center justify-end gap-6 md:mt-10 md:w-1/2">
@@ -52,7 +55,7 @@ export const Header = () => {
               aria-controls="cart"
               onClick={() => setIsCartOpen(!isCartOpen)}
             >
-              <img className="w-full" src="/img/carrito.png" alt="" />
+              <img className="w-full" src={cartIcon} alt="" />
             </button>
             {
               /** Si elementos en el carrito ... */
