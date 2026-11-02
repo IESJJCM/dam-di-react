@@ -59,7 +59,7 @@ export const Cart = ({ onClose }: CartProps) => {
                   <td className="py-3">
                     <img
                       className="w-10"
-                      src={`/img/${item.image}.jpg`}
+                      src={item.image}
                       alt={`Guitarra ${item.name}`}
                     />
                   </td>
